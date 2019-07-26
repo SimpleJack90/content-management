@@ -5,37 +5,41 @@
 @section('content')
 
     <div class="d-flex justify-content-end">
-        <a href="{{route('categories.create')}}" class="btn btn-success mb-2" >
-            Add Category
+        <a href="{{route('tags.create')}}" class="btn btn-success mb-2" >
+            Add Tag
         </a>
     </div>
 
     <div class="card">
         <div class="card-header">
-            Categories
+            Tags
         </div>
         <div class="card-body">
 
-            @if($categories->count()>0)
+            @if($tags->count()>0)
                 <table class="table">
 
                     <thead>
+                    <tr>
                     <th>Name:</th>
+                    <th>Posts Count</th>
                     <th></th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                    @foreach($categories as $category)
+                    @foreach($tags as $tag)
                         <tr>
-                            <td>{{$category->name}}</td>
+                            <td>{{$tag->name}}</td>
+                            <td>{{ $tag->posts->count() }} </td>
                             <td>
-                                <a href="{{ route('categories.edit',$category->id)}}"
+                                <a href="{{ route('tags.edit',$tag->id)}}"
                                    class="btn btn-info btn-sm"> Edit</a>
 
                                 <button type="button"
                                         class="btn btn-danger btn-sm"
 
-                                        onclick="handleDelete({{$category->id}})">
+                                        onclick="handleDelete({{$tag->id}})">
                                     Delete
                                 </button>
                             </td>
@@ -43,7 +47,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <form action="" method="POST" id="deleteCategoryForm">
+                <form action="" method="POST" id="deleteTagForm">
 
                     @csrf
 
@@ -53,13 +57,13 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete category</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete tag</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p class="text-center font-weight-bold">  Are you sure you want to delete this category?
+                                    <p class="text-center font-weight-bold">  Are you sure you want to delete this tag?
                                     </p>
 
                                 </div>
@@ -71,9 +75,9 @@
                         </div>
                     </div>
                 </form>
-                @else
-                <h3>No Categories Yet</h3>
-                @endif
+            @else
+                <h3>No Tags Yet</h3>
+            @endif
 
 
 
@@ -81,20 +85,20 @@
 
     </div>
 
-    @endsection
+@endsection
 
 @section('scripts')
     <script>
         function handleDelete(id){
 
 
-            var form=document.getElementById('deleteCategoryForm');
+            var form=document.getElementById('deleteTagForm');
 
-            form.action='./categories/'+id;
+            form.action='./tags/'+id;
 
 
 
             $('#deleteModal').modal('show');
         }
     </script>
-    @endsection
+@endsection
