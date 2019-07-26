@@ -61,6 +61,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{route('users.edit-profile')}}">
+                                       Profile
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -85,13 +90,13 @@
             <div class="container">
 
                 @if(session()->has('success'))
-                    <div class="alert alert-success">
+                    <div id="success_div" class="alert alert-success">
                         {{session()->get('success')}}
                     </div>
                 @endif
 
                     @if(session()->has('error'))
-                        <div class="alert alert-danger">
+                        <div id="error_div" class="alert alert-danger">
                             {{session()->get('error')}}
                         </div>
                     @endif
@@ -100,6 +105,15 @@
                     <div class="col-md-4">
 
                         <ul class="list-group">
+
+                            @if(auth()->user()->isAdmin())
+                                <li class="list-group-item" >
+
+                                    <a href="{{route('users.index')}}">Users</a>
+
+                                </li>
+                            @endif
+
 
                             <li class="list-group-item" >
 
@@ -153,5 +167,15 @@
     <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
 
+<script>
+    $(document).ready(function(){
+
+
+            $("#error_div").fadeOut(4000);
+
+            $("#success_div").fadeOut(4000);
+
+    });
+</script>
 </body>
 </html>
