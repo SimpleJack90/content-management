@@ -41,7 +41,8 @@ class PostsController extends Controller
         //
 
         return view('posts.create')
-            ->with('categories',Category::all())->with('tags',Tag::all());
+            ->with('categories',Category::all())
+            ->with('tags',Tag::all());
     }
 
     /**
@@ -63,7 +64,8 @@ class PostsController extends Controller
             'content'=>$request->content,
             'image'=>$image,
             'published_at'=>$request->published_at,
-            'category_id'=>$request->category
+            'category_id'=>$request->category,
+           'user_id'=>auth()->user()->id
         ]);
 
        if($request->tags){

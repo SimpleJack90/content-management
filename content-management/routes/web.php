@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Blog\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,9 +12,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index')->name('welcome');
+
+Route::get('blog/posts/{post}',[PostsController::class,'show'])->name('blog.show');
+
+Route::get('blog/categories/{category}',[PostsController::class,'category'])->name('blog.category');
+
+Route::get('blog/tags/{tag}',[PostsController::class,'tag'])->name('blog.tag');
+
 
 Auth::routes();
 
@@ -56,4 +62,6 @@ Route::middleware(['auth','admin'])->group(function(){
     Route::put('users/profile','UsersController@update')->name('users.update-profile');
 
 });
+
+
 

@@ -135,7 +135,8 @@
 
         //for picking different dates
         flatpickr('#published_at',{
-            enableTime:true
+            enableTime:true,
+            enableSeconds:true
         })
 
         //fancy select
